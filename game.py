@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from hero import Hero
 from monsters import Monster
@@ -11,7 +11,8 @@ class Mediator(ABC):
     эти события и передавать исполнение другим компонентам.
     """
 
-    def notify(self, sender: object, event: str) -> None:
+    @abstractmethod
+    def start(self) -> None:
         pass
 
 
@@ -24,13 +25,18 @@ class Battle(Mediator):
         self._monster.mediator = self
 
     def start(self):
-        while self._hero.hp > 0:
-            print(self._monster.hp)
-            id_strategy = input()
+        while self._hero.hp > 0 and self._monster.hp > 0:
+            print("monster hp:", self._monster.hp)
+            print("hero hp:", self._hero.hp)
+            id_strategy = input("1-воин, 2-лучник, 3-маг, 4-убежать:")
             if id_strategy == '1':
                 self._hero.set_sword_strategy()
             elif id_strategy == '2':
                 self._hero.set_archer_strategy()
+            elif id_strategy == '3':
+                self._hero.set_magician_strategy()
+            elif id_strategy == '4':
+                break
             self._hero.battle(self._monster)
             self._monster.battle(self._hero)
 

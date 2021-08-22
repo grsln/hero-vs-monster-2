@@ -4,9 +4,9 @@ from strategies import ArcherStrategy, MagicianStrategy, Strategy, WarriorStrate
 class Character:
     """Персонаж с меняющимися стратегиями."""
 
-    def __init__(self) -> None:
+    def __init__(self, character_strategy: Strategy = WarriorStrategy()) -> None:
         """Инициализация персонажа."""
-        self._strategy = WarriorStrategy()
+        self._strategy = character_strategy
 
     @property
     def strategy(self) -> Strategy:

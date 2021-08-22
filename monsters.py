@@ -1,13 +1,24 @@
+from enum import Enum
+
 from character import Character
+from strategies import ArcherStrategy, MagicianStrategy, Strategy, WarriorStrategy
+
+
+class MonstersTypes(Enum):
+    warrior = WarriorStrategy,
+    archer = ArcherStrategy,
+    magician = MagicianStrategy
 
 
 class Monster(Character):
     """Персонаж Чудовище."""
 
-    def __init__(self):
+    def __init__(self, character_strategy: Strategy):
         """Инициализация чудовища."""
-        super().__init__()
-        self.hp = 100
+
+        print(character_strategy)
+        super().__init__(character_strategy)
+        self.hp = 10
 
     def battle(self, opponent: Character) -> None:
         """Обработка удара противника."""

@@ -15,7 +15,7 @@ class Strategy(ABC):
         pass
 
     @abstractmethod
-    def defense(self):
+    def defense(self, attack_power: int) -> int:
         pass
 
 
@@ -29,21 +29,21 @@ class WarriorStrategy(Strategy):
     def attack(self) -> int:
         return 5
 
-    def defense(self) -> int:
-        return 2
+    def defense(self, attack_power: int) -> int:
+        return attack_power // 2
 
 
 class ArcherStrategy(Strategy):
     def attack(self) -> int:
         return 2
 
-    def defense(self) -> int:
-        return 2
+    def defense(self, attack_power: int) -> int:
+        return attack_power // 3
 
 
 class MagicianStrategy(Strategy):
     def attack(self) -> int:
         return 1
 
-    def defense(self) -> int:
-        return 2
+    def defense(self, attack_power: int) -> int:
+        return attack_power // 4
