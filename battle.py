@@ -5,26 +5,25 @@ from monsters import Monster
 
 
 class Mediator(ABC):
-    """
-    Интерфейс Посредника предоставляет метод, используемый компонентами для
-    уведомления посредника о различных событиях. Посредник может реагировать на
-    эти события и передавать исполнение другим компонентам.
-    """
+    """Посредник для боя между рыцарем и чудовищем."""
 
     @abstractmethod
     def start(self) -> None:
         pass
 
 
-# class Game(Mediator):
 class Battle(Mediator):
+    """Посредник для боя между рыцарем и чудовищем."""
+
     def __init__(self, hero: Hero, monster: Monster) -> None:
+        """Инициализация боя."""
         self._hero = hero
         self._hero.mediator = self
         self._monster = monster
         self._monster.mediator = self
 
     def start(self):
+        """Запуск боя."""
         while self._hero.hp > 0 and self._monster.hp > 0:
             print("monster hp:", self._monster.hp)
             print("hero hp:", self._hero.hp)
@@ -85,12 +84,12 @@ class BaseComponent:
 #         self.mediator.notify(self, "D")
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # Клиентский код.
-    c1 = Hero()
-    c2 = Monster()
-    mediator = Battle(c1, c2)
-    mediator.start()
+    # c1 = Hero()
+    # c2 = Monster()
+    # mediator = Battle(c1, c2)
+    # mediator.start()
     # print("Client triggers operation A.")
     # c1.do_a()
     #

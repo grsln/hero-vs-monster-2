@@ -11,7 +11,6 @@ class Character:
     @property
     def strategy(self) -> Strategy:
         """Ссылку на стратегию."""
-
         return self._strategy
 
     @strategy.setter

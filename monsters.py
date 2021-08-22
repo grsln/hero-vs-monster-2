@@ -1,13 +1,9 @@
-from enum import Enum
-
 from character import Character
 from strategies import ArcherStrategy, MagicianStrategy, Strategy, WarriorStrategy
 
-
-class MonstersTypes(Enum):
-    warrior = WarriorStrategy,
-    archer = ArcherStrategy,
-    magician = MagicianStrategy
+MonstersTypes = {'warrior': WarriorStrategy,
+                 'archer': ArcherStrategy,
+                 'magician': MagicianStrategy}
 
 
 class Monster(Character):
