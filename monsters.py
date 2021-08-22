@@ -1,17 +1,14 @@
 from character import Character
 from strategies import ArcherStrategy, MagicianStrategy, Strategy, WarriorStrategy
 
-MonstersTypes = {'warrior': WarriorStrategy,
-                 'archer': ArcherStrategy,
-                 'magician': MagicianStrategy}
+MonstersTypes = {"warrior": WarriorStrategy, "archer": ArcherStrategy, "magician": MagicianStrategy}
 
 
 class Monster(Character):
     """Персонаж Чудовище."""
 
-    def __init__(self, character_strategy: Strategy):
+    def __init__(self, character_strategy: Strategy = WarriorStrategy()):
         """Инициализация чудовища."""
-
         print(character_strategy)
         super().__init__(character_strategy)
         self.hp = 10
@@ -20,6 +17,7 @@ class Monster(Character):
         """Обработка удара противника."""
         print(self.strategy)
         self.hp -= opponent.strategy.attack()
+
 
 # class Monster(ABC):
 #     """Абстрактный класс игрового противника."""

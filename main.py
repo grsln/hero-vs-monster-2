@@ -1,13 +1,12 @@
 import random
 
-from battle import Battle
-from hero import Hero
-from monsters import Monster, MonstersTypes
+from battle import Battle, HeroComponent, MonsterComponent
+from monsters import MonstersTypes
 
 if __name__ == "__main__":
     random_monster_type = random.choice(list(MonstersTypes.keys()))
-    mn = Monster(MonstersTypes[random_monster_type]())
+    mn = MonsterComponent(MonstersTypes[random_monster_type]())
     print(mn.strategy)
-    hr = Hero()
+    hr = HeroComponent()
     game = Battle(hr, mn)
     game.start()

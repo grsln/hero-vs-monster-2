@@ -1,15 +1,10 @@
-from abc import ABC, abstractmethod
-
-
-class Strategy(ABC):
+class Strategy:
     """Интерфейс стратегии персонажа."""
 
-    @abstractmethod
     def attack(self) -> int:
         """Функция возвращает силу атаки."""
         pass
 
-    @abstractmethod
     def defense(self, attack_power: int) -> int:
         """Функция возвращает силу защиты от атаки."""
         pass

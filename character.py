@@ -10,7 +10,7 @@ class Character:
 
     @property
     def strategy(self) -> Strategy:
-        """Ссылку на стратегию."""
+        """Ссылка на стратегию."""
         return self._strategy
 
     @strategy.setter
@@ -18,14 +18,14 @@ class Character:
         """Установка стратегии."""
         self._strategy = strategy
 
-    def set_sword_strategy(self):
+    def set_sword_strategy(self) -> None:
         """Установка стратегии WarriorStrategy."""
         self._strategy = WarriorStrategy()
 
-    def set_archer_strategy(self):
+    def set_archer_strategy(self) -> None:
         """Установка стратегии ArcherStrategy."""
         self._strategy = ArcherStrategy()
 
-    def set_magician_strategy(self):
+    def set_magician_strategy(self) -> None:
         """Установка стратегии MagicianStrategy."""
         self._strategy = MagicianStrategy()
