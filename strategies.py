@@ -1,3 +1,6 @@
+from backpack_items import Sword
+
+
 class Strategy:
     """Интерфейс стратегии персонажа."""
 
@@ -13,9 +16,9 @@ class Strategy:
 class WarriorStrategy(Strategy):
     """Стратегия Воин."""
 
-    def attack(self) -> int:
+    def attack(self, sword: Sword) -> int:
         """Сила удара воина."""
-        return 5
+        return sword.attack
 
     def defense(self, attack_power: int) -> int:
         """Сила защиты воина."""

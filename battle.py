@@ -46,6 +46,9 @@ class MonsterComponent(Monster, BaseComponent):
 
 class Battle(Mediator):
     """Посредник для боя между рыцарем и чудовищем."""
+    INPUT_STR = "Выберите тип атаки(1-воин, 2-лучник, 3-маг, 4-убежать):"
+    MONSTER_HP_STR = "monster hp:"
+    HERO_HP_STR = "hero hp:"
 
     def __init__(self, hero: HeroComponent, monster: MonsterComponent) -> None:
         """Инициализация боя."""
@@ -57,9 +60,9 @@ class Battle(Mediator):
     def start(self) -> None:
         """Запуск боя."""
         while self._hero.hp > 0 and self._monster.hp > 0:
-            print("monster hp:", self._monster.hp)
-            print("hero hp:", self._hero.hp)
-            id_strategy = input("Выберите тип атаки(1-воин, 2-лучник, 3-маг, 4-убежать):")
+            print(self.MONSTER_HP_STR, self._monster.hp)
+            print(self.HERO_HP_STR, self._hero.hp)
+            id_strategy = input(self.INPUT_STR)
             if id_strategy == "1":
                 self._hero.set_sword_strategy()
             elif id_strategy == "2":
