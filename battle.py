@@ -59,7 +59,7 @@ class Battle(Mediator):
         while self._hero.hp > 0 and self._monster.hp > 0:
             print("monster hp:", self._monster.hp)
             print("hero hp:", self._hero.hp)
-            id_strategy = input("1-воин, 2-лучник, 3-маг, 4-убежать:")
+            id_strategy = input("Выберите тип атаки(1-воин, 2-лучник, 3-маг, 4-убежать):")
             if id_strategy == "1":
                 self._hero.set_sword_strategy()
             elif id_strategy == "2":
