@@ -46,6 +46,7 @@ class MonsterComponent(Monster, BaseComponent):
 
 class Battle(Mediator):
     """Посредник для боя между рыцарем и чудовищем."""
+
     INPUT_STR = "Выберите тип атаки(1-воин, 2-лучник, 3-маг, 4-убежать):"
     MONSTER_HP_STR = "monster hp:"
     HERO_HP_STR = "hero hp:"

@@ -1,6 +1,6 @@
 import random
 
-from character import Character
+from character import Character, HeroCharacter
 from strategies import ArcherStrategy, MagicianStrategy, Strategy, WarriorStrategy
 
 MonstersTypes = {"warrior": WarriorStrategy, "archer": ArcherStrategy, "magician": MagicianStrategy}
@@ -18,6 +18,6 @@ class Monster(Character):
         self.hp = random.randrange(1, self.MAX_HP)
         self.attack = random.randrange(1, self.MAX_ATTACK)
 
-    def battle(self, opponent: Character) -> None:
+    def battle(self, opponent: HeroCharacter) -> None:
         """Обработка удара противника."""
         self.hp -= opponent.strategy.attack()
