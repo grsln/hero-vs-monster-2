@@ -1,76 +1,79 @@
-from backpack_items import Arch, Arrows, MagicBook, Sword
-from strategies import Strategy
+from backpack import Backpack
+from strategies import ArcherStrategy, MagicianStrategy, WarriorStrategy
 
 
-class HeroWarriorStrategy(Strategy):
+class HeroWarriorStrategy(WarriorStrategy):
     """Стратегия Воин."""
 
-    def __init__(self, sword: Sword) -> None:
+    def __init__(self, backpack: Backpack) -> None:
         """Инициализация стратегии."""
-        self.sword: Sword = sword
+        self._backpack: Backpack = backpack
+        super().__init__(self._backpack.content["sword"].attack)
 
     def attack(self) -> int:
         """Сила удара воина."""
-        return self.sword.attack
+        if self._backpack.content.get("sword"):
+            return self._backpack.content["sword"].attack
+        return 0
 
-    def defense(self, attack_power: int) -> int:
+    def defense(self, opponent_attack: int) -> int:
         """Сила защиты воина."""
-        return attack_power // 2
-
-    def change(self, sword: Sword) -> None:
-        """Замена меча."""
-        self.sword = sword
+        return opponent_attack // 2
 
     def __repr__(self) -> str:
         """Тип атаки."""
         return "воин"
 
 
-class HeroArcherStrategy(Strategy):
+class HeroArcherStrategy(ArcherStrategy):
     """Стратегия Лучник."""
 
-    def __init__(self, arch: Arch, arrows: Arrows) -> None:
+    def __init__(self, backpack: Backpack) -> None:
         """Инициализация стратегии."""
-        self.arch: Arch = arch
-        self.arrows: Arrows = arrows
+        self._backpack: Backpack = backpack
+        super().__init__(self._backpack.content["arch"].attack)
+
+    # def __init__(self, arch: Arch, arrows: Arrows) -> None:
+    #     """Инициализация стратегии."""
+    #     self.arch: Arch = arch
+    #     self.arrows: Arrows = arrows
+    #     super().__init__(self.arch.attack)
 
     def attack(self) -> int:
         """Сила атаки лучника."""
-        self.arrows.down_count(1)
-        return self.arch.attack
+        if self._backpack.content.get("arch") and self._backpack.content.get("arrows"):
+            if self._backpack.content["arrows"].arrows_count <= 0:
+                return 0
+            self._backpack.content["arrows"].down_count(1)
+        return self._backpack.content["arch"].attack
 
-    def defense(self, attack_power: int) -> int:
-        """Сила защиты лучника."""
-        return attack_power // 2
+    # def defense(self, opponent_attack: int) -> int:
+    #     """Сила защиты лучника."""
+    #     return opponent_attack // 2
 
-    def change(self, arch: Arch) -> None:
-        """Замена лука."""
-        self.arch = arch
-
-    def __repr__(self) -> str:
-        """Тип атаки."""
-        return "лучник"
+    # def __repr__(self) -> str:
+    #     """Тип атаки."""
+    #     return "лучник"
 
 
-class HeroMagicianStrategy(Strategy):
+class HeroMagicianStrategy(MagicianStrategy):
     """Стратегия Маг."""
 
-    def __init__(self, magic_book: MagicBook):
+    def __init__(self, backpack: Backpack) -> None:
         """Инициализация стратегии."""
-        self.magic_book: MagicBook = magic_book
+        self._backpack: Backpack = backpack
+        super().__init__(self._backpack.content["magic_book"].attack)
 
     def attack(self) -> int:
         """Сила атаки мага."""
-        return self.magic_book.attack
+        if self._backpack.content.get("magic_book"):
+            return self._backpack.content["magic_book"].attack
+        return 0
 
-    def defense(self, attack_power: int) -> int:
+    def defense(self, opponent_attack: int) -> int:
         """Сила защиты мага."""
-        return attack_power // 2
+        return opponent_attack // 2
 
-    def change(self, magic_book: MagicBook) -> None:
-        """Замена книги."""
-        self.magic_book = magic_book
-
-    def __repr__(self) -> str:
-        """Тип атаки."""
-        return "маг"
+    # def __repr__(self) -> str:
+    #     """Тип атаки."""
+    #     return "маг"

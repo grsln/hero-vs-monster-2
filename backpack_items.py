@@ -1,5 +1,5 @@
 import random
-from typing import Dict, Type, Union
+from typing import Any, Dict, Type, Union
 
 
 class Sword:
@@ -12,16 +12,24 @@ class Sword:
         """Инициализация предмета Меч."""
         self.attack = random.randrange(1, self.MAX_ATTACK)
 
+    def __repr__(self) -> str:
+        """Название предмета."""
+        return f"Меч(сила атаки:{self.attack})"
+
 
 class Arch:
     """Лук."""
 
     name = "arch"
-    MAX_ATTACK = 8
+    MAX_ATTACK = 4
 
     def __init__(self) -> None:
         """Инициализация предмета Лук."""
         self.attack = random.randrange(1, self.MAX_ATTACK)
+
+    def __repr__(self) -> str:
+        """Название предмета."""
+        return f"Лук(сила атаки:{self.attack})"
 
 
 class Arrows:
@@ -42,6 +50,10 @@ class Arrows:
         """Уменьшение количества стрел."""
         self.arrows_count -= arrows
 
+    def __repr__(self) -> str:
+        """Название предмета."""
+        return f"Стрелы({self.arrows_count}шт.)"
+
 
 class MagicBook:
     """Книга заклинаний."""
@@ -53,11 +65,32 @@ class MagicBook:
         """Инициализация предмета Книга заклинаний."""
         self.attack = random.randrange(1, self.MAX_ATTACK)
 
+    def __repr__(self) -> str:
+        """Название предмета."""
+        return f"Книга заклинаний(сила атаки:{self.attack})"
+
 
 class Totem:
     """Тотем."""
 
     name = "totem"
+
+    def __init__(self, originator: Any) -> None:
+        """Инициализация тотема."""
+        self._snapshot = None
+        self._originator = originator
+
+    def backup(self) -> None:
+        """Сохранение игры."""
+        self._snapshot = self._originator.save()
+
+    def undo(self) -> None:
+        """Восстановление игры."""
+        self._originator.restore(self._snapshot)
+
+    def __repr__(self) -> str:
+        """Название предмета."""
+        return "Тотем"
 
 
 UnionBackpackItems = Union[Sword, Arch, Arrows, MagicBook, Totem]

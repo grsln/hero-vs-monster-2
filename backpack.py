@@ -6,7 +6,9 @@ from backpack_items import Arrows, TypeBackpackItems, UnionBackpackItems
 class Backpack:
     """Рюкзак для найденных предметов."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+    ) -> None:
         """Инициализация рюкзака."""
         self.content: Dict[str, UnionBackpackItems] = dict()
 
@@ -22,3 +24,7 @@ class Backpack:
     def remove_from_backpack(self, item: TypeBackpackItems) -> None:
         """Удаление предмета из рюкзака."""
         self.content.pop(item.name)
+
+    def __repr__(self) -> str:
+        """Название и содержимое рюкзака."""
+        return "Содержимое рюкзака:{}".format([_ for _ in self.content.values()])
