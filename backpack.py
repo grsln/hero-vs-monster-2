@@ -6,9 +6,7 @@ from backpack_items import Arrows, TypeBackpackItems, UnionBackpackItems
 class Backpack:
     """Рюкзак для найденных предметов."""
 
-    def __init__(
-        self,
-    ) -> None:
+    def __init__(self) -> None:
         """Инициализация рюкзака."""
         self.content: Dict[str, UnionBackpackItems] = dict()
 
