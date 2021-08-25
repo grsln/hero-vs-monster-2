@@ -3,9 +3,10 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from battle import HeroComponent
-from hero_strategies import HeroWarriorStrategy
+from apple import Apple
 from backpack_items import Sword, Totem
+from battle import Battle, HeroComponent, MonsterComponent
+from hero_strategies import HeroWarriorStrategy
 from main import Game
 
 
@@ -25,8 +26,13 @@ class TestHeroComponent:
 
 
 class TestBattle:
-    def test_battle(self):
-        pass
+    def test_battle(self, monkeypatch):
+        hero = HeroComponent()
+        monster = MonsterComponent()
+        battle = Battle(hero, monster)
+        monkeypatch.setattr('builtins.input', lambda _: "4")
+        battle.start()
+        assert hero.monster_counter == 0
 
 
 class TestMemento:
@@ -40,3 +46,9 @@ class TestMemento:
         del totem
         game.hero.backpack.content['totem'].undo()
         assert game.hero.hp == 20
+
+
+class TestApple:
+    def test_apple(self):
+        apple = Apple()
+        assert 0 < apple.life < apple.MAX_LIFE
