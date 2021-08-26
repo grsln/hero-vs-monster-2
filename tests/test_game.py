@@ -1,6 +1,8 @@
 import os
 import sys
 
+import pytest
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from apple import Apple
@@ -11,16 +13,17 @@ from main import Game
 
 
 class TestHeroComponent:
-    def test_first_strategy(self):
-        hero = HeroComponent()
+    @pytest.fixture(scope='class')
+    def hero(self):
+        return HeroComponent()
+
+    def test_first_strategy(self, hero):
         assert hero.strategy.__class__ == HeroWarriorStrategy
 
-    def test_hero_monster_counter(self):
-        hero = HeroComponent()
+    def test_hero_monster_counter(self, hero):
         assert hero.monster_counter == 0
 
-    def test_hero_kill_monster(self):
-        hero = HeroComponent()
+    def test_hero_kill_monster(self, hero):
         hero.kill_monster()
         assert hero.monster_counter == 1
 
@@ -52,3 +55,19 @@ class TestApple:
     def test_apple(self):
         apple = Apple()
         assert 0 < apple.life < apple.MAX_LIFE
+
+
+class TestGame:
+
+    def test_object_step(self, monkeypatch):
+        game = Game()
+        objects_count = len(game.hero.backpack.content)
+        monkeypatch.setattr('builtins.input', lambda _: "1")
+        game.object_step()
+        assert len(game.hero.backpack.content) > objects_count
+
+    def test_start(self, monkeypatch):
+        game = Game()
+        monkeypatch.setattr('builtins.input', lambda _: "1")
+        result = game.start()
+        assert result in (Game.VICTORY, Game.LOSE)

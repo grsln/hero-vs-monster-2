@@ -25,7 +25,13 @@ class Game:
         self.steps = {"monster": self.monster_step, "object": self.object_step, "apple": self.apple_step}
         self.hero = HeroComponent()
 
-    def start(self) -> None:
+    def use_totem(self):
+        """Использование тотема."""
+        self.hero.backpack.content.get("totem").undo()
+        if self.hero.backpack.content.get("totem"):
+            self.hero.backpack.content.pop("totem")
+
+    def start(self) -> str:
         """Запуск игры."""
         while (
             self.hero.hp > 0
@@ -34,11 +40,9 @@ class Game:
             and self.hero.backpack.content.get("totem")
         ):
             if self.hero.hp <= 0:
-                answer = input("Поражение. Воспользоваться тотемом?(1-да, 2-нет):")
+                answer = input("ПОРАЖЕНИЕ. Воспользоваться тотемом?(1-да, 2-нет):")
                 if answer == "1":
-                    self.hero.backpack.content.get("totem").undo()
-                    if self.hero.backpack.content.get("totem"):
-                        self.hero.backpack.content.pop("totem")
+                    self.use_totem()
                 else:
                     break
             print(self.KILL_MONSTERS_STR, self.hero.monster_counter)
@@ -47,8 +51,10 @@ class Game:
             # input(PRESS_ENTER)
         if self.hero.hp <= 0 or self.hero.monster_counter < self.MONSTERS_FOR_WIN:
             print(self.LOSE)
+            return self.LOSE
         else:
             print(self.VICTORY)
+            return self.VICTORY
 
     def monster_step(self) -> None:
         """Выполнение шага monster(встреча с чудовищем)."""
@@ -70,7 +76,6 @@ class Game:
     def object_step(self) -> None:
         """Выполнение шага object(обнаружение предмета)."""
         random_backpack_type = BackpackItems[random.choice(list(BackpackItems.keys()))]
-        print(random_backpack_type, Totem, random_backpack_type != Totem)
         if random_backpack_type != Totem:
             random_backpack_item = random_backpack_type()
             if self.is_weapon_equal_strategy(random_backpack_item):
